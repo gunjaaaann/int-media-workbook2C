@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.typekit.net/ltw8pzf.css">
+    <title>Workshop 3</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <style>
+
+        * {cursor:url("images/w2-cursor.png"), auto;}
+
+        a {cursor: pointer !important;}
+
+        body {
+            background-color: #3a3f62;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            margin: 0;
+            text-align: center;
+            color: #000000;
+            font-family: "fractul-variable", sans-serif;            
+            position: relative;
+            align-items: center;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0.5em 2em;
+            box-sizing: border-box;
+            background-color: #000000;
+        }
+
+        .back {
+            background-color: #1e18ab; 
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: "fractul-variable", sans-serif;
+        }
+
+        .back:hover {
+            background-color: #8900cd; 
+            color: #ffffff;
+        }
+
+        .row {
+            display: flex;
+            height: 100%;
+            width: 60%;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            padding: 1em;
+            margin-top: 2em;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1em;
+            box-sizing: border-box;
+        }
+
+        .video-column {
+            flex: 1.2; 
+        }
+
+        .text-column {
+            flex: 1.8; 
+            padding-left: 2em;
+            text-align: left;
+        }
+
+        .materials {
+            list-style-type: none;
+        }
+
+        .canvas-heading {
+            position: absolute;
+            top: 30vh;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "fractul-variable", sans-serif;
+            font-size: 10rem;
+            color: white;
+            z-index: 10;
+        }
+
+        .subheading {
+            color: #fff; 
+            font-size: 3em;
+            padding-top: 3em;
+        }
+
+        video, img {
+            width: 100%; 
+            max-width: 100%; 
+            height: auto;
+        }
+
+        .section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        ul,li { 
+            list-style-type: none;
+            list-style-position:inside;
+            margin:0;
+            padding:0; 
+        }
+
+        .slides {
+            position: relative;
+            width: 100%;
+            padding-right: 2em;
+            box-sizing: border-box;
+        }
+
+        .slideshow-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 1em;
+            cursor: pointer;
+            font-size: 2rem;
+            z-index: 5;
+        }
+
+        .slideshow-button:first-of-type {
+            left: 0;
+        }
+
+        .slideshow-button:last-of-type {
+            right: 0.99em;
+        }
+
+        .slides img {
+            width: 100%;
+            margin-bottom: 2em;
+            height: 30em;
+            display: block;
+        }
+
+        .footer {
+            padding-top: 0;
+            margin-bottom: 0;
+            width: 90vw;
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1vw;
+        }
+
+        .footer a {
+            color: white;
+            font-size: 18vw;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .footer a:hover {
+            transform: translateY(-30%);
+            color: #000000;
+        }
+
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .info {
+            color: #ffffff;
+        }
+
+        .sources-block {
+            padding-top: 15em;
+        }
+
+
+        /* Rainfall */
+        .rainfall {
+        position: absolute;
+        z-index: -1;
+        }
+
+        .rain1 {
+        color: #c0c7ff;
+        text-shadow: rgb(190, 190, 232);
+        font-size: 1.4em;
+        letter-spacing: -2px;
+        text-shadow: 2px 2px 20px #c0c7ff;
+        opacity: 0.9;
+        z-index: -2;
+        }
+
+        #rain1 {
+        position: absolute;
+        top: 0px;
+        right: 10vw;
+        animation: 3.3s rainfall linear infinite;
+        z-index: -1;
+        }
+
+        #rain2 {
+        position: absolute;
+        top: 0px;
+        right: 50vw;
+        animation: 2.7s rainfall linear infinite;
+        z-index: -1;
+        }
+
+        #rain3 {
+        position: absolute;
+        top: -15vh;
+        right: 60vw;
+        animation: 4.2s rainfall linear infinite;
+        animation-delay: 1.2s;
+        z-index: -1;
+        }
+
+        #rain4 {
+        position: absolute;
+        top: -30vh;
+        right: 90vw;
+        animation: 4.3s rainfall linear infinite;
+        animation-delay: 2s;
+        z-index: -1;
+        }
+
+        #rain5 {
+        position: absolute;
+        top: -40vh;
+        right: 30vw;
+        animation: 3s rainfall linear infinite;
+        z-index: -1;
+        }
+
+        #rain6 {
+        position: absolute;
+        top: -3vh;
+        right: -50vw;
+        animation: 3s rainfall linear infinite;
+        animation-delay: 1.2s;
+        z-index: -1;
+        }
+
+        #rain7 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 2.2s;
+        z-index: -1;
+        }
+
+        #rain8 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 2.2s;
+        z-index: -1;
+        }
+
+        #rain9 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 1.5s;
+        z-index: -1;
+        }
+
+        #rain10 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 1.2s;
+        z-index: -1;
+        }
+
+        #rain11 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 1.2s;
+        z-index: -1;
+        }
+
+        #rain12 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 1.2s;
+        z-index: -1;
+        }
+
+        #rain13 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 1.2s;
+        z-index: -1;
+        }
+
+        #rain14 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 1.2s;
+        z-index: -1;
+        }
+
+        #rain15 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 1.2s;
+        z-index: -1;
+        }
+
+        #rain16 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 0.8s;
+        z-index: -1;
+        }
+
+        #rain17 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 1.2s;
+        z-index: -1;
+        }
+
+        #rain18 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 0.8s;
+        z-index: -1;
+        }        
+        
+        #rain19 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 0.5s;
+        z-index: -1;
+        }        
+        
+        #rain20 {
+        position: absolute;
+        top: -22px;
+        right: -20vw;
+        animation: 2s rainfall linear infinite;
+        animation-delay: 0.2s;
+        z-index: -1;
+        }
+
+        @keyframes rainfall {
+        0% {
+        line-height: 5px;
+        }
+        100% {
+        line-height: 10px;
+        }
+        }
+        @keyframes rainfall {
+        0% {
+        transform: rotateZ(0deg) translateX(0%) translateY(0%);
+        }
+        100% {
+        transform: rotateZ(0deg) translateX(0vw) translateY(100vh);
+        }
+        }
+
+
+    </style>  
+</head>
+<body>
+    <div class="header">
+        <p style="color: #ffffff;">WORKSHOP 3</p>
+        <div class="button-container"> 
+            <button style="font-size: 1rem; font-family: 'fractul-variable'"  class="back" onclick="location.href='room.html'">BACK</button>
+        </div>
+    </div>
+
+
+    <div id="canvas-container">
+        <div id="rainfall" class="hidden">
+            <div class="rain1" id="rain1"><pre>|</pre></div>
+            <div class="rain1" id="rain2"><pre>|</pre></div>
+            <div class="rain1" id="rain3"><pre>|</pre></div>
+            <div class="rain1" id="rain4"><pre>|</pre></div>
+            <div class="rain1" id="rain5"><pre>|</pre></div>
+            <div class="rain1" id="rain6"><pre>|</pre></div>
+            <div class="rain1" id="rain7"><pre>|</pre></div>
+            <div class="rain1" id="rain8"><pre>|</pre></div>
+            <div class="rain1" id="rain9"><pre>|</pre></div>
+            <div class="rain1" id="rain10"><pre>|</pre></div>
+            <div class="rain1" id="rain11"><pre>|</pre></div>
+            <div class="rain1" id="rain12"><pre>|</pre></div>
+            <div class="rain1" id="rain13"><pre>|</pre></div>
+            <div class="rain1" id="rain14"><pre>|</pre></div>
+            <div class="rain1" id="rain15"><pre>|</pre></div>
+            <div class="rain1" id="rain16"><pre>|</pre></div>
+            <div class="rain1" id="rain17"><pre>|</pre></div>
+            <div class="rain1" id="rain18"><pre>|</pre></div>
+            <div class="rain1" id="rain19"><pre>|</pre></div>
+            <div class="rain1" id="rain20"><pre>|</pre></div>
+        </div>
+        <h1 class="canvas-heading" style="color: #ffffff;">WEB DESIGN</h1>
+        <p class="canvas-heading" style="font-size: 2rem; color: #ffffff;">(3/3)</p>
+
+    </div>
+
+    <!--class experiments-->
+    <h1 class="subheading">CLASS EXPERIMENTS</h1>
+    
+    <!--fluid design-->
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w3.1.JPG">
+        </div>
+        <div class="column text-column">
+            <h2>FLUID DESIGN</h2>
+            <p>Designing for mobile interfaces using media queries.</p>
+        </div>
+    </div>
+
+    <!--development work-->
+    <h1 class="subheading">DEVELOPMENT WORK</h1>
+    <div class="row">
+        <div class="column video-column">
+            <div class="slides">
+                <img class="slideshow" src="images/w3.4.JPG">
+                <img class="slideshow" src="images/w3.5.jpg">
+                <img class="slideshow" src="images/w3.6.jpg">
+                <button class="slideshow-button" onclick="plusDivs(-1)">&#10094;</button>
+                <button class="slideshow-button" onclick="plusDivs(1)">&#10095;</button>
+            </div>
+        </div>
+        <div class="column text-column">
+            <h2>Ideas and to do list</h2>
+        </div>
+    </div>
+
+    <!--files organisation 1-->
+    <div class="row" style="flex-direction: column; ">
+        <div class="row" style="width: 47%; gap: 2em;">
+            <img src="images/w3.2.JPG">
+            <img src="images/w3.3.jpg">
+        </div>
+        <p style="align-self: flex-start; padding-left: 1em;">Files organisation</p>
+    </div>
+
+    <!--files organisation 1-->
+    <div class="row" style="flex-direction: column; ">
+        <div class="column" style="width: 70%; gap: 2em;">
+            <img src="images/w3.9.jpg">
+            <img src="images/w3.8.jpg">
+        </div>
+        <p style="align-self: flex-start; padding-left: 1em;">More files organisation</p>
+        <p style="align-self: flex-start; padding-left: 1em;">I blindly followed a YouTube tutorial and wrote code in JS and react</p>
+        <p style="align-self: flex-start; padding-left: 1em;">I used chatGPT to convert this to plain JS to be able to host it on Github</p>
+        <p style="align-self: flex-start; padding-left: 1em;">This also significantly sorted and reduced my files</p>
+    </div>
+
+
+
+    <!--hunt n gather-->
+    <h1 class="subheading">HUNT n GATHER</h1>
+
+    <!--because recollective-->
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w3.7.jpg">
+        </div>
+        <div class="column text-column">
+            <h2>NOMADIC TRIBE</h2>
+            <p>Interactive cursor that can be used to grow flower from the ground.</p>
+            <p>The storyline, music and animations make it a calming and engaging experience.</p>
+        </div>
+    </div>
+
+    <!--tim holman's portfolio website-->
+    <div class="row">
+        <div class="column video-column">
+            <video controls  class="landscape">
+                <source src="images/w3.8.mov">
+            </video>
+        </div>
+        <div class="column text-column">
+            <h2>SCALE OF UNIVERSE</h2>
+            <p>Ineractive cursor that can be used to zoom in and out to see the scale of various things.</p>
+            <p>Elements range from planets to a salt grain!</p>
+        </div>
+    </div>
+
+    <!--my shrine-->
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w3.10.jpg">
+        </div>
+        <div class="column text-column">
+            <h2>LATE CHECKOUT</h2>
+            <p>3D space, interaction through keyboard.</p>
+            <p>On hovering over certain buildings, a popup reveals informationn about the page linked to it.</p>
+        </div>
+    </div>
+
+
+
+    <!-- sources -->
+    <div class="sources-block">
+        <p class="info">/* raindrops code (shooting-stars code) copied from lms >> WEEK 2: Guides | Cheatsheets | Code Snippets */</p>
+        <p class="info">/* chatGPT link - for converting react to plain JS. see below */</p>
+        <p class="info"><a href="https://chatgpt.com/canvas/shared/67e3d71736908191a5ee9a9cf0cc8193">view here</a></p>
+     </div>
+     
+
+    <!--footer-->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="workshop1.html">1</a>
+            <a href="workshop2.html">2</a>
+            <a href="workshop3.html">3</a>
+            <a href="workshop4.html">4</a>
+            <a href="workshop5.html">5</a>
+            <a href="workshop6.html">6</a>
+            <a href="workshop7.html">7</a>
+            <a href="workshop8.html">8</a>
+            <a href="workshop9.html">9</a>
+        </div>
+    </footer>
+
+    <!--script to run slideshow-->
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+        
+        function plusDivs(n) {
+          showDivs(slideIndex += n);
+        }
+        
+        function showDivs(n) {
+          var i;
+          var x = document.getElementsByClassName("slideshow");
+          if (n > x.length) {slideIndex = 1}
+          if (n < 1) {slideIndex = x.length}
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+          }
+          x[slideIndex-1].style.display = "block";  
+        }
+        </script>
+</body>  
+</html>

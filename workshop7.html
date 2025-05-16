@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.typekit.net/ltw8pzf.css">
+    <title>Workshop 7</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <style>
+
+        * {cursor:url("images/w7-cursor.png"), auto;}
+
+        a {cursor: pointer !important;}
+
+        body {
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            margin: 0;
+            text-align: center;
+            color: #000000;
+            font-family: "fractul-variable", sans-serif;            
+            position: relative;
+            align-items: center;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0.5em 2em;
+            box-sizing: border-box;
+            background-color: #45013a;
+        }
+
+        .back {
+            background-color: #4c69f9; 
+            color: #000000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: "fractul-variable", sans-serif;
+        }
+
+        .back:hover {
+            background-color: #aabbfe; 
+            color: #0525c2;
+        }
+
+        .row {
+            display: flex;
+            height: 100%;
+            width: 60%;
+            align-items: center;
+            justify-content: center;
+            background-color: #e7e7e7;
+            padding: 1em;
+            margin-top: 2em;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1em;
+            box-sizing: border-box;
+        }
+
+        .video-column {
+            flex: 1.2; 
+        }
+
+        .text-column {
+            flex: 1.8;
+            padding-left: 3em;
+            text-align: left;
+        }
+
+        .materials {
+            list-style-type: none;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            background-color: #1e1e1e;
+            color: #dcdcdc;
+            padding: 0.5em;
+            border-radius: 5px;
+            font-size: 1rem;
+            line-height: 1.7rem;
+        }
+
+        pre {
+            background-color: #1e1e1e;
+            padding: 1em;
+            border-radius: 5px;
+        }
+
+        .canvas-heading {
+            position: absolute;
+            top: 30vh;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "fractul-variable", sans-serif;
+            font-size: 10rem;
+            color: white;
+            z-index: 10;
+        }
+
+        .subheading {
+            color: #fff; 
+            font-size: 3em;
+            padding-top: 3em;
+        }
+
+        video, img {
+            width: 100%; 
+            max-width: 100%; 
+            height: auto;
+        }
+
+        ul,li { 
+            list-style-type: none;
+            list-style-position:inside;
+            margin:0;
+            padding:0; 
+        }
+
+        .footer {
+            padding-top: 15em;
+            margin-bottom: 0;
+            width: 90vw;
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1vw;
+        }
+
+        .footer a {
+            color: white;
+            font-size: 18vw;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .footer a:hover {
+            transform: translateY(-30%);
+            color: #356b8a;
+        }
+
+
+    </style>  
+</head>
+<body>
+    <div class="header">
+        <p style="color: #fff;">WORKSHOP 7</p>
+        <div class="button-container"> 
+            <button style="font-size: 1rem; font-family: 'fractul-variable'"  class="back" onclick="location.href='room.html'">BACK</button>
+        </div>
+    </div>
+
+    <div id="canvas-container">
+        <h1 class="canvas-heading">PHYSICAL COMPUTING</h1>
+        <p class="canvas-heading" style="font-size: 2rem; color: #ffffff;">(1/3)</p>
+        <iframe src="w7-sketch1.html" width="1200" height="900" style="border:none;"></iframe>
+    </div>
+
+    <!--row with 2 columns-->
+    <h1 class="subheading">CLASS EXPERIMENTS</h1>
+    <div class="row" style="flex-direction: column; align-items: flex-start;">
+        <p style="padding-left: 2em;">ok! enough playing. here's the full photo</p>
+        <img src="images/w7.1.JPG" style="width: 97%; padding: 2em;">
+        <p style="padding-left: 2em;">introduction to physical computing!</p>
+        <p style="padding-left: 2em;"   >here's all (almost) the parts of our kits labelled</p>
+    </div>
+
+    <div class="row">
+        <div class="column video-column">
+            <video controls>
+                <source src="images/w7.2.MOV">
+            </video>
+        </div>
+        <div class="column text-column">
+            <h2>FIRST CIRCUITS!</h2>
+            <p>in week 7 we were introduced to physical computing</p>
+            <p><strong>activity:</strong> coding a blinking LED</p>
+            <p>here's a video of the first circuit I made with Tashya!</p>
+            <p>from running in the opposite direction of Physics in high school, it was interesting to go back to it and build something interactive</p>
+            <p><strong>materials used:</strong></p>
+            <ul class="materials">
+                <li>Arduino board</li>
+                <li>breadboard</li>
+                <li>1x resistor</li>
+                <li>1x wire</li>
+                <li>battery</li>
+                <li>battery connector</li>
+                <li>button</li>
+            </ul>
+        </div> 
+    </div>
+
+    <div class="row">
+        <div class="column video-column">
+            <video controls><source src="images/w7.3.MOV"></video>
+        </div>
+        <div class="column text-column">
+            <h2>ULTRASONIC BUZZZZZZZER</h2>
+            <p>beware! don't get too close or you'll hear the most annoying sound in the world</p>
+            <p><strong>activity:</strong> ultrasonic buzzer</p>
+            <p><strong>materials used:</strong></p>
+            <ul class="materials">
+                <li>Arduino board</li>
+                <li>breadboard</li>
+                <li>7x wires</li>
+                <li>ultrasonic sensor</li>
+                <li>a laptop!</li>
+            </ul>
+        </div>
+    </div>
+    
+    <h1 class="subheading">HUNT n GATHER</h1>
+    <div class="row">
+        <div class="column video-column">
+            <video controls>
+                <source src="images/w7.5.mov">
+            </video>
+        </div>
+        <div class="column text-column">
+            <h2>Memroy Garden @ ACMI</h2>
+            <p>Memory Garden is an interactive and immersive display of Australian home videos from the ACMI collection</p>
+            <p>when a viewer places their hand between the towers, a video is projected on to their hand, using it as a screen</p>
+            <p>this was quite a novel experience when I saw it first. I find it interesting that they chose to use a hand as the projection surface rather than a wall. it suggests a deliberate effort to create a more intimate and interactive experience for the user.</p>
+            <p><a href="https://www.acmi.net.au/interactive-experiences-at-acmi/">view here</a></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w7.7.jpg">
+        </div>
+        <div class="column text-column">
+            <h2>Curious characters born from code @ ACMI</h2>
+            <p><strong>Kinfolk</strong></p>
+            <p>These are a set of fantastic beings that viewers can bring to life by jumping or dancing.</p>
+            <p><i>"Created from an unending algorithm, some of the artworks in Beings are generative and evolve in real-time, so that no two visits are the same."</i></p>
+            <p>This interactive artwork was super engaging and became quite popular while I was visiting the exhibition. It was fun to see the creatures move with you and their fur and molecules react to motion</p>
+            <p><a href="https://www.universaleverything.com/exhibitions/beings">view here</a></p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w7.6.jpeg">
+        </div>
+        <div class="column text-column">
+            <h2>AR Sandbox</h2>
+            <p>An augemented reality sandbox is a 3D, interactive, dynamic,educational tool to help understand mapping, typography and more.</p>
+            <p>The tool measures distance to map contour lines onto the sand as it is moved in real time.</p>
+            <p><a href="https://www.usgs.gov/youth-and-education-in-science/augmented-reality-ar-sandbox#:~:text=An%20augmented%20reality%20(AR)%20sandbox,%2C%20natural%20hazards%2C%20and%20more!">view here</a></p>
+        </div>
+    </div>
+
+    <!--footer-->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="workshop1.html">1</a>
+            <a href="workshop2.html">2</a>
+            <a href="workshop3.html">3</a>
+            <a href="workshop4.html">4</a>
+            <a href="workshop5.html">5</a>
+            <a href="workshop6.html">6</a>
+            <a href="workshop7.html">7</a>
+            <a href="workshop8.html">8</a>
+            <a href="workshop9.html">9</a>
+        </div>
+    </footer>
+
+</body>  
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.typekit.net/ltw8pzf.css">
+    <title>Workshop 4</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <style>
+
+        * {cursor:url("images/w4-cursor.png"), auto;}
+
+        a {cursor: pointer !important;}
+
+        body {
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            margin: 0;
+            text-align: center;
+            color: #ffffff;
+            font-family: "fractul-variable", sans-serif;            
+            position: relative;
+            align-items: center;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0.5em 2em;
+            box-sizing: border-box;
+            background-color: #000000;
+        }
+
+        .back {
+            background-color: #1e18ab; 
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: "fractul-variable", sans-serif;
+        }
+
+        .back:hover {
+            background-color: #8900cd; 
+            color: #ffffff;
+        }
+
+        .row {
+            display: flex;
+            height: 100%;
+            width: 60%;
+            align-items: center;
+            justify-content: center;
+            background-color: #000000;
+            padding: 1em;
+            margin-top: 2em;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1em;
+            box-sizing: border-box;
+        }
+
+        .video-column {
+            flex: 1.2; 
+        }
+
+        .text-column {
+            flex: 1.8; 
+            padding-left: 2em;
+            text-align: left;
+        }
+
+        .materials {
+            list-style-type: none;
+        }
+
+        .canvas-heading {
+            position: absolute;
+            top: 30vh;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "fractul-variable", sans-serif;
+            font-size: 10rem;
+            color: #000000;
+            z-index: 10;
+        }
+
+        .subheading {
+            color: #000000; 
+            font-size: 3em;
+            padding-top: 3em;
+        }
+
+        video, img {
+            width: 100%; 
+            max-width: 100%; 
+            height: auto;
+        }
+
+        .section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        ul,li { 
+            list-style-type: none;
+            list-style-position:inside;
+            margin:0;
+            padding:0; 
+        }
+
+        .slides {
+            position: relative;
+            width: 100%;
+            padding-right: 2em;
+            box-sizing: border-box;
+        }
+
+        .slideshow-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 1em;
+            cursor: pointer;
+            font-size: 2rem;
+            z-index: 5;
+        }
+
+        .slideshow-button:first-of-type {
+            left: 0;
+        }
+
+        .slideshow-button:last-of-type {
+            right: 0.99em;
+        }
+
+        .slides img {
+            width: 100%;
+            margin-bottom: 2em;
+            height: 30em;
+            display: block;
+        }
+
+        .footer {
+            padding-top: 0;
+            margin-bottom: 0;
+            width: 90vw;
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1vw;
+        }
+
+        .footer a {
+            color: rgb(0, 0, 0);
+            font-size: 18vw;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .footer a:hover {
+            transform: translateY(-30%);
+            color: #d80000;
+        }
+
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .info {
+            color: #000000;
+        }
+
+        .sources-block {
+            padding-top: 15em;
+            color: #000000;
+        }
+
+
+    </style>  
+</head>
+<body>
+    <div class="header">
+        <p style="color: #ffffff;">WORKSHOP 4</p>
+        <div class="button-container"> 
+            <button style="font-size: 1rem; font-family: 'fractul-variable'"  class="back" onclick="location.href='room.html'">BACK</button>
+        </div>
+    </div>
+
+    <div id="canvas-container">
+        <h1 class="canvas-heading">CREATIVE CODING</h1>
+        <p class="canvas-heading" style="font-size: 2rem;">(1/3)</p>
+        <iframe src="w4-sketch1.html" width="100%" height="900" style="border:none;"></iframe>
+    </div>
+
+    <!--yayoi kusama-->
+    <h1 class="subheading">YAYOI KUSAMA</h1>
+    
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w4.1.JPG">
+        </div>
+        <div class="column text-column">
+            <h2>AGGREGATION: ONE THOUSAND BOAT SHOWS</h2>
+            <p>1998</p>
+            <p>3D sculpture</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w4.2.JPG">
+        </div>
+        <div class="column text-column">
+            <h2>PUMPKIN</h2>
+            <p>2024</p>
+            <p>3D sculpture</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w4.3.jpeg">
+        </div>
+        <div class="column text-column">
+            <h2>THE HOPE OF THE POLKA DOTS WILL ETERNALL COVER THE UNIVERSE</h2>
+            <p>2019</p>
+            <p>Immersive room</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w4.4.JPG">
+        </div>
+        <div class="column text-column">
+            <h2>IMMERSIVE ROOM: LOVE IS CALLING</h2>
+            <p>2013</p>
+            <p>Immersive room</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w4.5.JPG">
+        </div>
+        <div class="column text-column">
+            <h2>FLOWER'S OBSESSION</h2>
+            <p>2017</p>
+            <p>Immersive room</p>
+        </div>
+    </div>
+
+
+
+    <!--class experiments-->
+    <h1 class="subheading">CLASS EXPERIMENTS</h1>
+    <h2>INTRODUCTION TO P5JS</h2>
+
+    <!--interactive activity 1-->    
+    <div class="row" style="flex-direction: column; padding-top: 2em; padding-left: 2em; padding-right: 2em; box-sizing: border-box;">
+        <div id="canvas-container-2" style="position: relative; width: 100%; max-width: 1075px; margin: 0 auto; padding-top: 45%;">
+            <iframe src="w4-sketch2.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+        <h2 style="align-self: flex-start; padding-left: 1em;">RANDOM COLOURS PAINT</h2>
+        <p style="align-self: flex-start; padding-left: 1em;">Uses random function and mouseX, mouseY to track cursor position.</p>
+        <p style="align-self: flex-start; padding-left: 1em;">Randomised colours.</p>
+    </div>
+    
+    <!--interactive activity 2-->    
+    <div class="row" style="flex-direction: column; padding-top: 2em; padding-left: 2em; padding-right: 2em; box-sizing: border-box;">
+        <div id="canvas-container-3" style="position: relative; width: 100%; padding-top: 45%;">
+            <iframe src="w4-sketch3.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+        </div>        
+        <h2 style="align-self: flex-start; padding-left: 1em;">RANDOM COLOURS CIRCLES</h2>
+        <p style="align-self: flex-start; padding-left: 1em;">Uses random function to add circles of different shapes and colours.</p>
+    </div>
+
+    <!--interactive activity 3-->    
+    <div class="row" style="flex-direction: column; padding-top: 2em; padding-left: 2em; padding-right: 2em; box-sizing: border-box;">
+        <div id="canvas-container-4" style="position: relative; width: 100%; padding-top: 45.45%;">
+            <iframe src="w4-sketch4.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+        <h2 style="align-self: flex-start; padding-left: 1em;">RANDOM COLOURS CIRCLES</h2>
+        <p style="align-self: flex-start; padding-left: 1em;">Uses random function to add circles of different shapes and colours.</p>
+    </div>
+
+    <!--interactive activity 4-->    
+    <div class="row" style="flex-direction: column; padding-top: 2em; padding-left: 2em; padding-right: 2em; box-sizing: border-box;">
+        <div id="canvas-container-4" style="position: relative; width: 100%; padding-top: 45.45%;">
+            <iframe src="w4-sketch5.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+        </div>       
+        <h2 style="align-self: flex-start; padding-left: 1em;">KUSAMA COLOURS</h2>
+        <p style="align-self: flex-start; padding-left: 1em;">Picks a random 'Kusama colour' to draw circles and squares of random sizes.</p>
+    </div>
+
+
+
+    <!--hunt n gather-->
+    <h1 class="subheading">HUNT n GATHER</h1>
+
+    <!--as we are-->
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w4.10.jpg">
+        </div>
+        <div class="column text-column">
+            <h2>AS WE ARE</h2>
+            <p><strong>Matthew Mohr</strong></p>
+            <p>Viewers can get their photo clicked which will appear on the artwork.</p>
+            <p><a href="https://theinspirationgrid.com/as-we-are-interactive-art-installation-by-matthew-mohr/">view here</a></p>
+        </div>
+    </div>
+
+    <!--chloe eyewwear-->
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w4.13.jpg">
+        </div>
+        <div class="column text-column">
+            <h2>CHLOE EYEWEAR</h2>
+            <p><i>"inviting people to interact with the in-store space in a novel way"</i></p>
+            <p>Viewers can get their photo clicked and see what glasses suit them the best.</p>
+            <p><a href="https://variable.io/chloe-see-with-optimism/">view here</a></p>
+        </div>
+    </div>
+
+    <!--species in pieces-->
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w4.14.png">
+        </div>
+        <div class="column text-column">
+            <h2>SPECIES IN PIECES</h2>
+            <p>Interactive exhibition</p>
+            <p>30 animals made out of 30 pieces changing dynamically from one to the other.</p>
+            <p><a href="https://variable.io/chloe-see-with-optimism/">view here</a></p>
+        </div>
+    </div>
+
+
+
+    <!-- sources -->
+    <div class="sources-block">
+        <p><strong>SOURCES</strong></p>
+        <p>NGV Vic</br><a href="https://www.ngv.vic.gov.au/yayoi-kusama-sensory-guide-and-map/">view here</a></p>
+        <p>P5JS creator open source code for flowers</br><a href="https://editor.p5js.org/elishafitri/sketches/nbrLz0idJ">view here</a></p>
+     </div>
+     
+
+    <!--footer-->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="workshop1.html">1</a>
+            <a href="workshop2.html">2</a>
+            <a href="workshop3.html">3</a>
+            <a href="workshop4.html">4</a>
+            <a href="workshop5.html">5</a>
+            <a href="workshop6.html">6</a>
+            <a href="workshop7.html">7</a>
+            <a href="workshop8.html">8</a>
+            <a href="workshop9.html">9</a>
+        </div>
+    </footer>
+
+    <!--script to run slideshow-->
+    <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+        
+        function plusDivs(n) {
+          showDivs(slideIndex += n);
+        }
+        
+        function showDivs(n) {
+          var i;
+          var x = document.getElementsByClassName("slideshow");
+          if (n > x.length) {slideIndex = 1}
+          if (n < 1) {slideIndex = x.length}
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+          }
+          x[slideIndex-1].style.display = "block";  
+        }
+        </script>
+</body>  
+</html>

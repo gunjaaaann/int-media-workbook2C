@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.typekit.net/ltw8pzf.css">
+    <title>Workshop 6</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
+    <style>
+
+        * {cursor:url("images/w6-cursor.png"), auto;}
+
+        a {cursor: pointer !important;}
+
+        body {
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            margin: 0;
+            text-align: center;
+            color: #000000;
+            font-family: "fractul-variable", sans-serif;            
+            position: relative;
+            align-items: center;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0.5em 2em;
+            box-sizing: border-box;
+            background-color: #d3a006;
+        }
+
+        .back {
+            background-color: #1e18ab; 
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: "fractul-variable", sans-serif;
+        }
+
+        .back:hover {
+            background-color: #8900cd; 
+            color: #ffffff;
+        }
+
+        .row {
+            display: flex;
+            height: 100%;
+            width: 60%;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            padding: 1em;
+            margin-top: 2em;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1em;
+            box-sizing: border-box;
+        }
+
+        .video-column {
+            flex: 1.2; 
+        }
+
+        .text-column {
+            flex: 1.8; 
+            padding-left: 2em;
+            text-align: left;
+        }
+
+        .materials {
+            list-style-type: none;
+        }
+
+        .canvas-heading {
+            position: absolute;
+            top: 30vh;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "fractul-variable", sans-serif;
+            font-size: 10rem;
+            color: #ffffff;
+            z-index: 10;
+        }
+
+        .subheading {
+            color: #ffffff; 
+            font-size: 3em;
+            padding-top: 3em;
+        }
+
+        video, img {
+            width: 100%; 
+            max-width: 100%; 
+            height: auto;
+        }
+
+        .section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        ul,li { 
+            list-style-type: none;
+            list-style-position:inside;
+            margin:0;
+            padding:0; 
+        }
+
+        .slides {
+            position: relative;
+            width: 100%;
+            padding-right: 2em;
+            box-sizing: border-box;
+        }
+
+        .slideshow-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 1em;
+            cursor: pointer;
+            font-size: 2rem;
+            z-index: 5;
+        }
+
+        .slideshow-button:first-of-type {
+            left: 0;
+        }
+
+        .slideshow-button:last-of-type {
+            right: 0.99em;
+        }
+
+        .slides img {
+            width: 100%;
+            margin-bottom: 2em;
+            height: 30em;
+            display: block;
+        }
+
+
+        pre code {
+            display: block;
+            max-width: 100%;
+            overflow-x: auto;
+            background-color: #1e1e1e;
+            color: #dcdcdc;
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            padding: 1em;
+            border-radius: 8px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            }
+
+        .footer {
+            padding-top: 0;
+            margin-bottom: 0;
+            width: 90vw;
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1vw;
+        }
+
+        .footer a {
+            color: #ffffff;
+            font-size: 18vw;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .footer a:hover {
+            transform: translateY(-30%);
+            color: #d3a006;
+        }
+
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .info {
+            color: #000000;
+        }
+
+        .sources-block {
+            padding-top: 15em;
+            color: #ffffff;
+        }
+
+
+    </style>  
+</head>
+<body>
+    <div class="header">
+        <p style="color: #ffffff;">WORKSHOP 6</p>
+        <div class="button-container"> 
+            <button style="font-size: 1rem; font-family: 'fractul-variable'"  class="back" onclick="location.href='room.html'">BACK</button>
+        </div>
+    </div>
+
+
+    <div id="canvas-container">
+        <marquee direction="left" style="color: #ffffff;">
+            <p>turn up your audio and click anywhere on the screen to immerse yourself in an audio-visual experience. how does it make you feel?</p>
+        </marquee>
+        <h1 class="canvas-heading">CREATIVE CODING</h1>
+        <p class="canvas-heading" style="font-size: 2rem;">(3/3)</p>
+        <iframe src="w6-sketch1.html" width="1500" height="900" style="border:none;"></iframe>
+
+    </div>
+
+
+    <!--class experiments-->
+    <h1 class="subheading">CLASS EXPERIMENTS</h1>
+    <h2 style="color: #ffffff;">INTRODUCTION TO P5JS</h2>
+
+    <!--insert p5-->
+    <p style="color: #ffffff;">insert p5 activity</p>
+
+    <!--data in your pocket-->
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w6.2.jpeg">
+        </div>
+        <div class="column text-column">
+            <h2>DATA IN YOUR POCKET</h2>
+            <p>Done with Rebekah and Tashya.</p>
+            <p>Data organised by how long we'd spend searching if the item were lost with the laptops and the hard drive as the epicentre.</p>
+        </div>
+    </div>
+
+
+    <h1 class="subheading">DEVELOPMENT WORK</h1>
+    <!--feedback and ideas-->
+    <div class="row" style="flex-direction: column;">
+        <div class="row video-column" style="width: 47%; gap: 2em;">
+            <img src="images/w6.9.jpg">
+            <img src="images/w6.10.png">
+        </div>
+        <p style="align-self: flex-start; padding-left: 1em;">Feedback from workbook 2A</p>
+        <p style="align-self: flex-start; padding-left: 1em;">& Other ideas i want to try out for workbook 2B.</p>
+    </div>
+
+    <h1 class="subheading">DATA VISUALISATION</h1>
+    <!--closet colour analysis-->
+    <div class="row" style="flex-direction: column; width: 60%; background-color: #ffffff;">
+        <div class="column" style="flex-direction: column; align-items: center;">
+            <img src="images/colour-analysis.png" alt="Colour Analysis" style="margin-bottom: 2em;">
+            <div style="text-align: left; width: 100%;">
+                <pre><code>
+                    let img;
+                    let colors = [];
+                    let dotCount = 3000; 
+                    
+                    function preload() {
+                      img = loadImage("data/w6.8.jpg");
+                    }
+                    
+                    function setup() {
+                      createCanvas(800, 600);
+                      imageMode(CENTER);
+                      noStroke();
+                      img.resize(width, height - 100); 
+                      
+                      for (let i = 0; i < dotCount; i++) {
+                        let x = floor(random(img.width));
+                        let y = floor(random(img.height));
+                        let col = img.get(x, y);
+                        fill(col);
+                        ellipse(x, y, 4, 4);
+                        colors.push(col);
+                      }
+                    
+                      let palette = getDominantColors(colors, 300);
+                      drawBarcode(palette);
+                    }
+                    
+                    function getDominantColors(colArray, numColors) {
+                      let freq = {};
+                      
+                      for (let col of colArray) {
+                        let key = col.toString();
+                        freq[key] = (freq[key] || 0) + 1;
+                      }
+                    
+                      return Object.entries(freq)
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, numColors)
+                        .map(entry => {
+                          let [r, g, b, a] = entry[0].split(',').map(Number);
+                          return color(r, g, b, a);
+                        });
+                    }
+                    
+                    function drawBarcode(palette) {
+                      let barWidth = width / palette.length;
+                      for (let i = 0; i < palette.length; i++) {
+                        fill(palette[i]);
+                        rect(i * barWidth, height - 100, barWidth, 100);
+                      }
+                    }
+                </code></pre>
+            </div>
+        </div>
+        <p style="align-self: flex-start; padding-left: 1em;">As I could not find the exact code do to this exercise. I asked chatGPT to help me.</p>
+        <p style="align-self: flex-start; padding-left: 1em;"><a href="https://chatgpt.com/share/68265256-f82c-8004-8916-bd36a1f5b9af">view here</a></p>
+        <p style="align-self: flex-start; padding-left: 1em;">This time I used P5 and pontilism to do the analysis.</p>
+
+    </div>
+    
+
+
+    <!--hunt n gather-->
+    <h1 class="subheading">HUNT n GATHER</h1>
+
+    <!--slave to the algorithm-->
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w6.3.png">
+        </div>
+        <div class="column text-column">
+            <h2>SLAVE TO THE ALGORITHM</h2>
+            <p><strong>Kathy Minhanh</strong></p>
+            <p>This work uses face mapping and emotion detection to generate art.</p>
+            <p><a href="https://kathyminhanh97.github.io/slavetothealgorithm/showcase/">view here</a></p>
+        </div>
+    </div>
+
+    <!--slave to the algorithm-->
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w6.4.png">
+        </div>
+        <div class="column text-column">
+            <h2>SLAVE TO THE ALGORITHM</h2>
+            <p><strong>Connor McNamara</strong></p>
+            <p>This work mimics music festivals and uses face mapping to use an interactive circle on the screen.</p>
+            <p><a href="https://connor-mcnamara.github.io/Slave-to-the-algorithm/Articulation_/">view here</a></p>
+        </div>
+    </div>
+
+    <!--subaltern speak-->
+    <div class="row">
+        <div class="column video-column">
+            <video controls class="photo">
+                <source src="images/w6.6.mov">
+            </video>
+        </div>
+        <div class="column text-column">
+            <h2>CAN THE SUBALTERN SPEAK?</h2>
+            <p><strong>Behnaz Farahi</strong></p>
+            <p>MIT Generative Unfoldings</p>
+            <p>This artwork uses an interactive cursor in a 3D space.</p>
+            <p><a href="https://generative-unfoldings.mit.edu/works/masks/view.html">view here</a></p>
+        </div>
+    </div>
+
+
+
+    <!--subaltern speak-->
+    <div class="row">
+        <div class="column video-column">
+            <img src="images/w6.5.png" class="photo">
+        </div>
+        <div class="column text-column">
+            <h2>PAC TRACER</h2>
+            <p><strong>Andy Wallace</strong></p>
+            <p>MIT Generative Unfoldings</p>
+            <p>This artwork uses an interactive cursor.</p>
+            <p><a href="https://generative-unfoldings.mit.edu/works/pac-tracer/view.html">view here</a></p>
+        </div>
+    </div>
+
+
+    <!-- sources -->
+    <div class="sources-block">
+        <p><strong>SOURCES</strong></p>
+        <p>audio downloaded from freesound.org</p>
+        <p><a href="https://freesound.org/people/Setuniman/sounds/135670/">view here</a></p>
+    </div>
+     </div>
+     
+
+    <!--footer-->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="workshop1.html">1</a>
+            <a href="workshop2.html">2</a>
+            <a href="workshop3.html">3</a>
+            <a href="workshop4.html">4</a>
+            <a href="workshop5.html">5</a>
+            <a href="workshop6.html">6</a>
+            <a href="workshop7.html">7</a>
+            <a href="workshop8.html">8</a>
+            <a href="workshop9.html">9</a>
+        </div>
+    </footer>
+
+    
+</body>  
+</html>

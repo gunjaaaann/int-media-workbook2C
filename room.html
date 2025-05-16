@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- add in CDN for three.js library -->
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G's bedroom</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+
+
+    <!--textures have been downloaded from - 
+    carpet: https://www.freepik.com/search?color=blue&format=search&last_filter=color&last_value=blue&query=Fabric+Texture, 
+    wood: https://texture.ninja/textures/Plain/24,
+    wall: https://www.freepik.com/free-photos-vectors/wall-texture-->
+
+    <style>
+        body {
+            margin: 0; 
+            overflow: hidden;
+        }
+        canvas {display: block;}
+    </style>
+</head>
+
+
+<body>  
+    <!-- <audio controls>
+        <source src="Good_Feelings.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+      </audio> -->
+
+
+    <canvas class="threejs"></canvas>
+    <script>
+
+        //Initialise the scene
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0000);
+        const room = new THREE.Group();
+
+
+        
+
+        //Define material colours
+        const mattressMaterial = new THREE.MeshStandardMaterial({color: 0xffffff});
+        const beddingMaterial = new THREE.MeshStandardMaterial({color: 0x1e18ab});
+        const windowMaterial = new THREE.MeshStandardMaterial({color: 0x9dc9fc, transparent: true, opacity: 0.3});
+        const woodMaterial = new THREE.TextureLoader().load("images/Wood.jpg")
+        const wallMaterial = new THREE.TextureLoader().load("images/wall.png")
+        const recordMaterial1 = new THREE.MeshBasicMaterial({color: 0x0000}); 
+        const recordMaterial2 = new THREE.MeshBasicMaterial({color: 0xe67777}); 
+        const railingMaterial = new THREE.MeshBasicMaterial({color: 0x9c9898}); 
+        const flowerMaterial = new THREE.MeshBasicMaterial({color: 0xf5d731}); 
+        const stemMaterial = new THREE.MeshBasicMaterial({color: 0x0b8515}); 
+        const vaseTopHollowMaterial = new THREE.MeshBasicMaterial({color: 0x2e2e2e}); 
+        const bookshelfMaterial = new THREE.MeshBasicMaterial({color: 0x212121}); 
+
+
+
+
+        //Add lights
+        const directionalLight = new THREE.DirectionalLight(0xf2e7d8, 1.8);
+        directionalLight.position.set(-6, 7, 6);
+        room.add(directionalLight);
+
+        const ambientLight = new THREE.AmbientLight(0xf2e7d8, 0.2);
+        ambientLight.position.set(7, 3, 6);
+        room.add(ambientLight);
+ 
+        
+        //Add objects
+        //BED
+        //Mattress
+        const mattress = new THREE.Mesh(new THREE.BoxGeometry(4, 0.5, 7), mattressMaterial);
+        mattress.position.y = 1.2;
+        room.add(mattress);
+
+        const headboard = new THREE.Mesh(new THREE.BoxGeometry(4.5, 1.8, 0.2), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        headboard.position.set(0, 1.8, -3.6);
+        room.add(headboard);
+
+        const bedframeBelow = new THREE.Mesh(new THREE.BoxGeometry(4.5, 0.2, 7.1), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        bedframeBelow.position.set(0, 0.9, 0.05);
+        room.add(bedframeBelow);
+
+        const bedLegBack = new THREE.Mesh(new THREE.BoxGeometry(4.5, 1, 0.2), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        bedLegBack.position.set(0, 0.5, -3.6);
+        room.add(bedLegBack);
+
+        const bedLegFront = new THREE.Mesh(new THREE.BoxGeometry(4.5, 1, 0.2), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        bedLegFront.position.set(0, 0.5, 3.7);
+        room.add(bedLegFront);
+
+        //Pillows
+        const pillow1 = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.2, 1), beddingMaterial);
+        pillow1.position.set(-1, 1.55, -3);
+        room.add(pillow1);
+
+        const pillow2 = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.2, 1), beddingMaterial);
+        pillow2.position.set(1, 1.55, -3);
+        room.add(pillow2);
+
+        //Create the bedding
+        const bedding = new THREE.Mesh(new THREE.BoxGeometry(4, 0.2, 5), beddingMaterial);
+        bedding.position.set(0, 1.55, 1);
+        room.add(bedding);
+
+
+
+        //FLOOR
+        const floor = new THREE.Mesh(new THREE.PlaneGeometry(13.1, 13.1), new THREE.MeshStandardMaterial({color: 0x9c9691}));
+        floor.position.set(3.1 ,0, 2)
+        floor.rotation.x = -Math.PI / 2;
+        room.add(floor);
+
+        //SIDE TABLE
+        const sideTableTop = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.2, 1.5), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        sideTableTop.position.set(3.5, 1.2, -2.95);
+        room.add(sideTableTop);
+
+        const sideTableMiddle = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.2, 1.5), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        sideTableMiddle.position.set(3.5, 0.7, -2.95);
+        room.add(sideTableMiddle);
+
+        const sideTableLeft = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.3, 1.5), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        sideTableLeft.position.set(2.6, 0.65, -2.95);
+        room.add(sideTableLeft);
+
+        const sideTableRight = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.3, 1.5), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        sideTableRight.position.set(4.4, 0.65, -2.95);
+        room.add(sideTableRight);
+
+
+        //VASE
+        const geometry3 = new THREE.CylinderGeometry(0.3, 0.1, 0.3, 32); // radiusTop, radiusBottom, height, radialSegments
+        const vaseTop = new THREE.Mesh(geometry3, beddingMaterial);
+        vaseTop.position.set(3.5, 2.2, -2.95);
+        room.add(vaseTop);
+
+        const geometry4 = new THREE.CylinderGeometry(0.1, 0.4, 1, 32); // radiusTop, radiusBottom, height, radialSegments
+        const vaseBottom = new THREE.Mesh(geometry4, beddingMaterial);
+        vaseBottom.position.set(3.5, 1.8, -2.95);
+        room.add(vaseBottom);
+
+        const geometry7 = new THREE.CircleGeometry(0.31, 32); 
+        const vaseTopHollow = new THREE.Mesh(geometry7, vaseTopHollowMaterial); 
+        vaseTopHollow.position.set(3.5, 2.36, -2.95);
+        vaseTopHollow.rotation.x = -Math.PI / 2;
+        room.add(vaseTopHollow);
+
+
+        //FLOWERS
+        const geometry5 = new THREE.CylinderGeometry(0.1, 0.02, 0.2, 32); // radiusTop, radiusBottom, height, radialSegments
+        const flower1 = new THREE.Mesh(geometry5, flowerMaterial);
+        flower1.rotation.z = 0.2;
+        flower1.position.set(3.5, 2.7, -2.95);
+        room.add(flower1);
+
+        const geometry6 = new THREE.CylinderGeometry(0.02, 0.02, 0.5, 32); // radiusTop, radiusBottom, height, radialSegments
+        const stem1 = new THREE.Mesh(geometry6, stemMaterial);
+        stem1.position.set(3.5, 2.5, -2.95);
+        room.add(stem1);
+
+        //WINDOW
+        const window1 = new THREE.Mesh(new THREE.BoxGeometry(0.2, 9, 13), windowMaterial);
+        window1.position.set(-3.5, 4.5, 2);
+        room.add(window1);
+
+
+
+        //WALL
+        const wall = new THREE.Mesh(new THREE.BoxGeometry(13, 9, 0.2), new THREE.MeshStandardMaterial({map:wallMaterial}));
+        wall.position.set(3, 4.5, -4.6);
+        room.add(wall);
+
+        //Posters on the wall
+        const poster1 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1, 0.2), new THREE.MeshStandardMaterial({color: 0xbd1c77 }));
+        poster1.position.set(-2, 4.6, -4.4);
+        room.add(poster1);
+
+        const poster2 = new THREE.Mesh(new THREE.BoxGeometry(2, 3, 0.2), beddingMaterial);
+        poster2.position.set(0, 5, -4.4);
+        room.add(poster2);
+
+        const poster2art1 = new THREE.Mesh(new THREE.BoxGeometry(0.5, 1, 0.2), new THREE.MeshStandardMaterial({color: 0x599cff}));
+        poster2art1.position.set(0.1, 4.4, -4.3);
+        room.add(poster2art1);
+
+        const poster2art2 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.8, 0.2), new THREE.MeshStandardMaterial({color: 0x599cff}));
+        poster2art2.position.set(0.7, 4, -4.3);
+        room.add(poster2art2);
+
+        const poster2art3 = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.1, 0.2), new THREE.MeshStandardMaterial({color: 0x599cff}));
+        poster2art3.position.set(0, 5.5, -4.3);
+        room.add(poster2art3);
+
+        const poster2art4 = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.4, 0.2), new THREE.MeshStandardMaterial({color: 0x599cff}));
+        poster2art4.position.set(-0.4, 5.5, -4.3);
+        room.add(poster2art4);
+
+        const poster2art5 = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.2, 0.2), new THREE.MeshStandardMaterial({color: 0x599cff}));
+        poster2art5.position.set(-0.6, 6, -4.3);
+        room.add(poster2art5);
+
+        const poster3 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.5, 0.2), new THREE.MeshStandardMaterial({color: 0x195e19}));
+        poster3.position.set(2, 5, -4.4);
+        room.add(poster3);
+
+
+        //CARPET
+        const carpet = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.2, 4), beddingMaterial);
+        carpet.position.set(3.5, 0.1, 0.6);
+        room.add(carpet);
+
+        const carpetArt1 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.05, 4), new THREE.MeshStandardMaterial({color: 0xad63a1}));
+        carpetArt1.position.set(3, 0.2, 0.6);
+        room.add(carpetArt1);
+
+        const carpetArt2 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.05, 4), new THREE.MeshStandardMaterial({color: 0xad63a1}));
+        carpetArt2.position.set(3.5, 0.2, 0.6);
+        room.add(carpetArt2);
+
+        const carpetArt3 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.05, 4), new THREE.MeshStandardMaterial({color: 0xad63a1}));
+        carpetArt3.position.set(4, 0.2, 0.6);
+        room.add(carpetArt3);
+
+
+        //WARDROBE
+        const wardrobeBackWall = new THREE.Mesh(new THREE.BoxGeometry(0.2, 9, 13), new THREE.MeshStandardMaterial({map:wallMaterial}));
+        wardrobeBackWall.position.set(9.7, 4.5, 2);
+        room.add(wardrobeBackWall);
+
+        const wardrobeBack = new THREE.Mesh(new THREE.BoxGeometry(0.2, 9, 9.7), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        wardrobeBack.position.set(9.5, 4.5, 0.3);
+        room.add(wardrobeBack);
+
+        const wardrobeLong1 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 9, 0.2), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        wardrobeLong1.position.set(8.7, 4.5, -1);
+        room.add(wardrobeLong1);
+
+        const wardrobeLong2 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 9, 0.2), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        wardrobeLong2.position.set(8.7, 4.5, 1.5);
+        room.add(wardrobeLong2);
+
+        const wardrobeLong3 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 9, 0.2), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        wardrobeLong3.position.set(8.7, 4.5, 5);
+        room.add(wardrobeLong3);
+
+        const wardrobeWide1 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 3.4), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        wardrobeWide1.position.set(8.7, 7, -2.8);
+        room.add(wardrobeWide1);
+
+        const wardrobeWide2 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 3.4), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        wardrobeWide2.position.set(8.7, 4, -2.8);
+        room.add(wardrobeWide2);
+
+        const wardrobeWide3 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 3.4), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        wardrobeWide3.position.set(8.7, 1, -2.8);
+        room.add(wardrobeWide3);
+
+        const wardrobeWide4 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 2.25), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        wardrobeWide4.position.set(8.7, 3, 0.3);
+        room.add(wardrobeWide4);
+
+        const wardrobeWide5 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 3.3), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        wardrobeWide5.position.set(8.7, 3, 3.25);
+        room.add(wardrobeWide5);
+
+        const wardrobeWide6 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 3.3), new THREE.MeshStandardMaterial({map:woodMaterial}));
+        wardrobeWide6.position.set(8.7, 5, 3.25);
+        room.add(wardrobeWide6);
+
+        const geometry = new THREE.CylinderGeometry(0.1, 0.1, 6, 32); // radiusTop, radiusBottom, height, radialSegments
+        const cylinder = new THREE.Mesh(geometry, railingMaterial);
+        cylinder.position.set(8.7, 8, 2);
+        cylinder.rotation.x = Math.PI / 2; 
+        room.add(cylinder);
+
+        
+        //CLOTHES
+        const cloth1 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 3, 0.2), new THREE.MeshStandardMaterial({color: 0x00000}));
+        cloth1.position.set(8.7, 6, 0.8);
+        room.add(cloth1);
+
+        const cloth2 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 3, 0.2), new THREE.MeshStandardMaterial({color: 0x00000}));
+        cloth2.position.set(8.7, 6, 0.3);
+        room.add(cloth2);
+
+        const cloth3 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 3, 0.2), new THREE.MeshStandardMaterial({color: 0x9e6c6c}));
+        cloth3.position.set(8.7, 6, -0.2);
+        room.add(cloth3);
+
+        const cloth4 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 2), new THREE.MeshStandardMaterial({color: 0x5c7a6d}));
+        cloth4.position.set(8.7, 4.2, -2.8);
+        room.add(cloth4);
+
+        const cloth5 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 2), new THREE.MeshStandardMaterial({color: 0xebebeb}));
+        cloth5.position.set(8.7, 4.4, -2.8);
+        room.add(cloth5);
+
+        const cloth6 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 2), new THREE.MeshStandardMaterial({color: 0x212121}));
+        cloth6.position.set(8.7, 4.6, -2.8);
+        room.add(cloth6);
+
+        const cloth7 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 2), beddingMaterial); //bluecloth
+        cloth7.position.set(8.7, 4.8, -2.8);
+        room.add(cloth7);
+
+        const cloth8 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 1), new THREE.MeshStandardMaterial({color: 0x212121}));
+        cloth8.position.set(8.7, 1.2, -3.5);
+        room.add(cloth8);
+
+        const cloth9 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 1), new THREE.MeshStandardMaterial({color: 0xc196d6}));
+        cloth9.position.set(8.7, 1.4, -3.5);
+        room.add(cloth9);
+
+        const cloth10 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 1), new THREE.MeshStandardMaterial({color: 0x6b0954}));
+        cloth10.position.set(8.7, 1.2, -2.1);
+        room.add(cloth10);
+
+        const cloth11 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 2.5), new THREE.MeshStandardMaterial({color: 0x41024f}));
+        cloth11.position.set(8.7, 5.2, 3.2);
+        room.add(cloth11);
+
+        const cloth12 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 2.5), new THREE.MeshStandardMaterial({color: 0xbfbfbf}));
+        cloth12.position.set(8.7, 5.4, 3.2);
+        room.add(cloth12);
+
+        const jewelleryBox = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.4, 2.5), new THREE.MeshStandardMaterial({color: 0x63533c}));
+        jewelleryBox.position.set(8.7, 3.3, 3.2);
+        room.add(jewelleryBox);
+
+        const jewelleryBoxPart = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.2, 0.1), new THREE.MeshStandardMaterial({color: 0x362f27}));
+        jewelleryBoxPart.position.set(7.9, 3.3, 3.2);
+        room.add(jewelleryBoxPart);
+
+
+        //BOOKSHELF
+        const bookshelfBack = new THREE.Mesh(new THREE.BoxGeometry(0.2, 9, 2), bookshelfMaterial);
+        bookshelfBack.position.set(9.5, 4.5, 7);
+        room.add(bookshelfBack);
+
+        const bookshelfLong1 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 9, 0.2), bookshelfMaterial);
+        bookshelfLong1.position.set(8.7, 4.5, 6);
+        room.add(bookshelfLong1);
+
+        const bookshelfLong2 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 9, 0.2), bookshelfMaterial);
+        bookshelfLong2.position.set(8.7, 4.5, 8);
+        room.add(bookshelfLong2);
+
+        const bookshelfWide1 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 2), bookshelfMaterial);
+        bookshelfWide1.position.set(8.7, 7, 7);
+        room.add(bookshelfWide1);
+
+        const bookshelfWide2 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 2), bookshelfMaterial);
+        bookshelfWide2.position.set(8.7, 5.5, 7);
+        room.add(bookshelfWide2);
+
+        const bookshelfWide3 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 2), bookshelfMaterial);
+        bookshelfWide3.position.set(8.7, 4, 7);
+        room.add(bookshelfWide3);
+
+        const bookshelfWide4 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 2), bookshelfMaterial);
+        bookshelfWide4.position.set(8.7, 2.5, 7);
+        room.add(bookshelfWide4);
+
+        const bookshelfWide5 = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 2), bookshelfMaterial);
+        bookshelfWide5.position.set(8.7, 1, 7);
+        room.add(bookshelfWide5);
+
+
+        //BOOKS
+        const book1 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.2), new THREE.MeshStandardMaterial({color: 0x0000}));
+        book1.position.set(8.7, 7.6, 6.2);
+        room.add(book1);
+
+        const book2 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.2), new THREE.MeshStandardMaterial({color: 0x9ead5f}));
+        book2.position.set(8.7, 7.6, 6.4);
+        room.add(book2);
+
+        const book3 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.2), new THREE.MeshStandardMaterial({color: 0xcf7853}));
+        book3.position.set(8.7, 7.6, 6.6);
+        room.add(book3);
+        
+        const book4 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.2), new THREE.MeshStandardMaterial({color: 0x8c231f}));
+        book4.position.set(8.7, 6, 7.8);
+        room.add(book4);
+
+        const book5 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.2), new THREE.MeshStandardMaterial({color: 0xf5c8c6}));
+        book5.position.set(8.7, 6, 7.6);
+        room.add(book5);
+
+        const book6 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.2), new THREE.MeshStandardMaterial({color: 0x4b635b}));
+        book6.position.set(8.7, 6, 7.4);
+        room.add(book6);
+
+        const book7 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.2), new THREE.MeshStandardMaterial({color: 0x341169}));
+        book7.position.set(8.7, 6, 7.2);
+        room.add(book7);
+
+        const book8 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.2), new THREE.MeshStandardMaterial({color: 0x333333}));
+        book8.position.set(8.7, 6, 7);
+        room.add(book8);
+
+        const book9 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.2, 0.2), new THREE.MeshStandardMaterial({color: 0x141414}));
+        book9.position.set(8.7, 6, 6.8);
+        room.add(book9);
+
+        const book10 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.4, 1.2), beddingMaterial); //bluebook
+        book10.position.set(8.7, 2.8, 7);
+        room.add(book10);
+
+
+        //RECORD PLAYER
+        const recordPlayer = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.2, 1.5), new THREE.MeshStandardMaterial({color: 0xd6d6d6}));
+        recordPlayer.position.set(8.7, 4.2, 7);
+        room.add(recordPlayer);
+        
+        const geometry1 = new THREE.CircleGeometry(0.6, 32); 
+        const record = new THREE.Mesh(geometry1, recordMaterial1); 
+        record.position.set(8.6, 4.35, 7);
+        record.rotation.x = -Math.PI / 2;
+        room.add(record);
+
+        const geometry2 = new THREE.CircleGeometry(0.2, 32); 
+        const circle = new THREE.Mesh(geometry2, recordMaterial2); 
+        circle.position.set(8.6, 4.4, 7);
+        circle.rotation.x = -Math.PI / 2;
+        room.add(circle);
+
+
+        //BALL
+        const geometry8 = new THREE.SphereGeometry(0.3, 32, 16); 
+        const ball = new THREE.Mesh(geometry8, beddingMaterial); 
+        ball.position.set(8, 0.3, 3)
+        room.add(ball);
+
+
+
+        //Camera
+        const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 200);
+        camera.position.set(-12, 16, 30);
+
+
+        //Renderer
+        const canvas = document.querySelector('canvas.threejs');
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+
+        //OrbitControls
+        const controls = new THREE.OrbitControls(camera, canvas);
+        controls.enableDamping = true;
+
+
+        //Resize handling
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        
+        // Render loop
+        function animate() {
+            controls.update();
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Raycasting for click detection
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        function onObjectClick(event) {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(scene.children, true);
+
+            if (intersects.length > 0) {
+                const clickedObject = intersects[0].object;
+                if (clickedObject === pillow1) {
+                    window.location.href = 'workshop1.html';
+                    
+                } else if (clickedObject === pillow2) {
+                    window.location.href = 'workshop2.html';
+                }
+                else if (clickedObject == bedding) {
+                    window.location.href = 'workshop3.html'
+                }
+                else if (clickedObject == poster2) {
+                    window.location.href = 'workshop6.html'
+                }
+
+                else if (clickedObject == carpet) {
+                    window.location.href = 'workshop4.html'
+                }
+
+                else if (clickedObject == vaseTop || clickedObject == vaseBottom) {
+                    window.location.href = 'workshop5.html'
+                }
+
+                else if (clickedObject == cloth7) {
+                    window.location.href = 'workshop7.html'
+                }
+
+                else if (clickedObject == ball) {
+                    window.location.href = 'workshop8.html'
+                }
+
+                else if (clickedObject == book10) {
+                    window.location.href = 'workshop9.html'
+                }
+            }
+        }
+
+        window.addEventListener('click', onObjectClick);
+
+        room.position.x = -4;
+        room.position.y = -1.5
+        scene.add(room);
+
+        /* attributions */
+        /*<a href="https://www.freepik.com/free-photo/coarse-textured-concrete-surface_6601011.htm">Image by freepik</a>*/
+    </script>
+  
+
+</body>

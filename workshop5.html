@@ -8,12 +8,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
     <style>
 
-        * {cursor:url("images/w5-cursor.png"), auto;}
+        * {cursor:url("images/w4-cursor.png"), auto;}
 
         a {cursor: pointer !important;}
 
         body {
-            background-color: #c3c3c3;
+            background-color: #ffffff;
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -22,355 +22,464 @@
             color: #ffffff;
             font-family: "fractul-variable", sans-serif;            
             position: relative;
+            align-items: center;
         }
 
-        .back-button-container {
-            width: 100%;
+        .header {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0.5em 2em;
+            box-sizing: border-box;
+            background-color: #000000;
         }
 
         .back {
-            background-color: #8e0c0c; 
+            background-color: #1e18ab; 
             color: #ffffff;
             border: none;
             padding: 10px 20px;
             cursor: pointer;
-            border-radius: 5px;
-            margin-top: 1em;
-            margin-right: 2em;
+            font-size: 1rem;
+            font-family: "fractul-variable", sans-serif;
         }
 
         .back:hover {
-            background-color: #a9ba46; 
-            color: #000000;
-        }
-
-        .main-header {
-            background-color: #000000;
-            color: #787878;
-            width: 100%;
-            margin-top: 1em;
+            background-color: #8900cd; 
+            color: #ffffff;
         }
 
         .row {
             display: flex;
             height: 100%;
-            width: 100%;
+            width: 60%;
+            align-items: center;
+            justify-content: center;
+            background-color: #000000;
+            padding: 1em;
+            margin-top: 2em;
         }
 
         .column {
-            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1em;
             box-sizing: border-box;
-            height: 100%;
+        }
+
+        .video-column {
+            flex: 1.2; 
+        }
+
+        .text-column {
+            flex: 1.8; 
+            padding-left: 2em;
+            text-align: left;
+        }
+
+        .materials {
+            list-style-type: none;
+        }
+
+        .canvas-heading {
+            position: absolute;
+            top: 30vh;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: "fractul-variable", sans-serif;
+            font-size: 10rem;
+            color: #000000;
+            z-index: 10;
+        }
+
+        .subheading {
+            color: #000000; 
+            font-size: 3em;
+            padding-top: 3em;
+        }
+
+        video, img {
+            width: 100%; 
+            max-width: 100%; 
+            height: auto;
+        }
+
+        .section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
             align-items: center;
         }
 
-        .photo {
-            width: 100%;
-            margin-top: 1em;
+        ul,li { 
+            list-style-type: none;
+            list-style-position:inside;
+            margin:0;
+            padding:0; 
         }
 
-        .sticky-heading {
-            background-color: #292929;
+        .slides {
+            position: relative;
             width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            text-align: center;
-            margin-top: 3em;
-            color: #ffffff;
+            padding-right: 2em;
+            box-sizing: border-box;
         }
 
-        .side-by-side {
+        .slideshow-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 1em;
+            cursor: pointer;
+            font-size: 2rem;
+            z-index: 5;
+        }
+
+        .slideshow-button:first-of-type {
+            left: 0;
+        }
+
+        .slideshow-button:last-of-type {
+            right: 0.99em;
+        }
+
+        .slides img {
+            width: 100%;
+            margin-bottom: 2em;
+            height: 30em;
+            display: block;
+        }
+
+        pre code {
+            display: block;
+            max-width: 100%;
+            overflow-x: auto;
+            background-color: #1e1e1e;
+            color: #dcdcdc;
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            padding: 1em;
+            border-radius: 8px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            }
+
+        .footer {
+            padding-top: 0;
+            margin-bottom: 0;
+            width: 90vw;
+            height: 50vh;
             display: flex;
+            justify-content: center;
+            align-items: flex-end;
         }
 
-        .challenge {
-            width: calc(50% - 0.5em);
-            margin-right: 1em;
+        .footer-links {
+            display: flex;
+            gap: 1vw;
         }
 
+        .footer a {
+            color: rgb(0, 0, 0);
+            font-size: 18vw;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .footer a:hover {
+            transform: translateY(-30%);
+            color: #d80000;
+        }
+
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .info {
+            color: #000000;
+        }
+
+        .sources-block {
+            padding-top: 15em;
+            color: #000000;
+        }
 
 
     </style>  
 </head>
 <body>
-    <div class="back-button-container"> 
-        <button style="font-size: 1rem; font-family: fractul-variable"  class="back" onclick="location.href='room.html'">BACK</button>
+    <div class="header">
+        <p style="color: #ffffff;">WORKSHOP 5</p>
+        <div class="button-container"> 
+            <button style="font-size: 1rem; font-family: 'fractul-variable'"  class="back" onclick="location.href='room.html'">BACK</button>
+        </div>
     </div>
 
-    <div class="main-header">
-        <h2>WORKSHOP 5</h2>
-    </div>
-
-
-    <!--using camera to create the background-->
-    <div id="canvas-container">    
+    <div id="canvas-container">
+        <h1 class="canvas-heading">CREATIVE CODING</h1>
+        <p class="canvas-heading" style="font-size: 2rem;">(2/3)</p>
         <script src="w5-sketch1.js"></script>
     </div>
+
+    <!--class experiments-->
+    <h1 class="subheading">CLASS EXPERIMENTS</h1>
     
-
-    <!--stack of rows with 2 columns-->
-    <!--experiments done in class-->
-    <div class="sticky-heading"><h3>/* class experiments */</h3></div>
-    <div class="row">
-        <div class="column">
-            <img src="images/w5.1.png" class="photo">
+    <!--interactive activity 1-->
+    <div class="row" style="flex-direction: column; padding-top: 2em; padding-left: 2em; padding-right: 2em; box-sizing: border-box;">
+        <div id="paint-an-image" style="position: relative; width: 100%; max-width: 1075px; margin: 0 auto; padding-top: 45%;">
+            <iframe src="w5-sketch2.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
         </div>
-        <div class="column">
-            <p>/* paint an image</p>
-            <p>interactive cursor used to reveal a new image */</p>
-        </div>
+        <h2 style="align-self: flex-start; padding-left: 1em;">KUSAMA</h2>
+        <p style="align-self: flex-start; padding-left: 1em;">Paint one image over the other.</p>
+        <p style="align-self: flex-start; padding-left: 1em;">I found this activity particularly interesting, while simple, as it keeps viewers engaged, making them want to reveal the image.</p>
     </div>
 
-    <div class="row">
-        <div class="column">
-            <img src="images/w5.2.png" class="photo">
+    <!--interactive activity 2-->
+    <div class="row" style="flex-direction: column; padding-top: 2em; padding-left: 2em; padding-right: 2em; box-sizing: border-box;">
+        <div id="paint-an-image" style="position: relative; width: 100%; max-width: 1075px; margin: 0 auto; padding-top: 45%;">
+            <iframe src="w5-sketch3.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
         </div>
-        <div class="column">
-            <p>/* uses - random function</p>
-            <p>random dice generator */</p>
+        <h2 style="align-self: flex-start; padding-left: 1em;">DICE ROLL</h2>
+        <p style="align-self: flex-start; padding-left: 1em;">Click to roll a virtual dice.</p>
+     </div>
+
+    <!--interactive activity 3-->
+     <div class="row" style="flex-direction: column; padding-top: 2em; padding-left: 2em; padding-right: 2em; box-sizing: border-box;">
+        <div id="paint-an-image" style="position: relative; width: 100%; max-width: 1075px; margin: 0 auto; padding-top: 45%;">
+            <iframe src="w5-sketch4.html" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="column">
-            <video controls class="photo"><source src="images/w5.3.mov"></video>
-        </div>
-        <div class="column">
-            <p>/* interactive cursor</p>
-            <p>changes the design of the text */</p>
-        </div>
-    </div>
-  
+        <h2 style="align-self: flex-start; padding-left: 1em;">DICE ROLL</h2>
+        <p style="align-self: flex-start; padding-left: 1em;">Click to roll a virtual dice.</p>
+     </div>
 
 
-    <!--homework exercises-->
-    <div class="sticky-heading"><h3>/* homework exercises */</h3></div>
 
-    <!--self portraits-->
-    <h4 style="color: #000000;">/* self portrait */</h4>
+    <h1 class="subheading">HOMEWORK EXERCISES</h1>
 
-    <div class="row">
-        <div class="column">
-            <div class="side-by-side photo">
-                <img src="images/3D_self_portrait.png" class="photo">
+    <!--self protrait-->    
+    <div class="row" style="flex-direction: column;">
+        <h2>SELF PORTRAIT</h2>
+        <div class="row" style="flex-direction: column; ">
+            <div class="column" style="width: 100%;">
+                <img src="images/3D_self_portrait.png">
             </div>
-        </div>
-        <div class="column">
-            <p>/* made with threejs */</p>
-            <p><a href="self-portrait.html">view here</a></p>
+            <p style="align-self: flex-start;">Made with ThreeJS</p>
+            <p style="align-self: flex-start;"><a href="self-portrait.html">view here</a></p>
         </div>
     </div>
 
     <div class="row">
-        <div class="column">
-            <div class="side-by-side photo">
-                <img src="images/w5.28.png" class="challenge">
-                <img src="images/w5.29.png" class="challenge">
-            </div>
+        <div class="column video-column">
+            <img src="images/w5.28.png">
         </div>
-        <div class="column">
-            <p>/* made with p5js */</p>
-        </div>
-    </div>
+        <div class="column text-column">
+            <pre><code>
+                function setup() {
+                    createCanvas(windowWidth, windowHeight);
+                    background(255);
+                }
 
+                function draw() {
+                    fill(255, 100, 10);
+                    no stroke();
 
+                    //face
+                    circle(windowWidth/2, windowHeight/2, 500);
+
+                    //hair
+                    fill(180, 255, 255);
+                    rect(920, 200, 100, 550);
+                    fill(100, 200, 200);
+                    rect(420, 200, 100, 550);
+                    rect(420, 200, 600, 150);
+
+                    //eyes
+                    fill(0);
+                    circle(600, 320, 40);
+                    circle(850, 320, 40);
+
+                    //mouth
+                    fill(120, 0, 100);
+                    stroke(0);
+                    arc(windowWidth/2, windowHeight/2 + 50, 200, 200, 0, PI);
+                }
     
-
-    <!--slave to the algorithm - 10 decisions-->
-    <h4 style="color: #000000; padding-top: 4em;">/* slave to the algorithm: 12hr challenge</h4>
-    <h4 style="color: #000000;">decisions made by a wheel spin */</h4>
-
-    <div class="row">
-        <div class="column">
-            <div class="side-by-side photo">
-                <img src="images/w5.12.jpg" class="challenge">
-                <img src="images/w5.13.jpg" class="challenge">
-            </div>
-        </div>
-        <div class="column">
-            <p>/* decision 1 - caffiene source before workout */</p>
-            <p>/* i got my favourite! a mocha! */</p>
+            </code></pre>
         </div>
     </div>
 
-    <div class="row">
-        <div class="column">
-            <div class="side-by-side photo">
-                <img src="images/w5.4.jpg" class="challenge">
-                <img src="images/w5.5.JPG" class="challenge">
-            </div>
+
+
+   
+    <!--slave to the algorithm-->
+    <div class="row" style="flex-direction: column; ">
+        <div class="row" style="width: 47%; gap: 2em;">
+            <img src="images/w5.12.jpg" style="height: 50em;">
+            <img src="images/w5.13.jpg" style="height: 50em;">
         </div>
-        <div class="column">
-            <p>/* decision 2 - workout split for today */</p>
-            <p>/* it was definitely a long, tiring day after that */</p>
-        </div>
+        <p style="align-self: flex-start; padding-left: 1em;">Decision 1 - caffiene source before workout</p>
+        <p style="align-self: flex-start; padding-left: 1em;">I got my favourite! a mocha!</p>
     </div>
 
-    <div class="row">
-        <div class="column">
-            <div class="side-by-side photo">
-                <img src="images/w5.6.jpg" class="challenge">
-                <img src="images/w5.7.jpg" class="challenge">
-            </div>
+    <div class="row" style="flex-direction: column; ">
+        <div class="row" style="width: 47%; gap: 2em;">
+            <img src="images/w5.4.jpg" style="height: 50em;">
+            <img src="images/w5.5.JPG" style="height: 50em;">
         </div>
-        <div class="column">
-            <p>/* decision 3 - tram route from gym to my apartment */</p>
-            <p>/* while the tram 16 took the longer route,</p>
-            <p>i got to see the lovely St Kilda Beach and Luna Park */</p>
-        </div>
+        <p style="align-self: flex-start; padding-left: 1em;">Decision 2 - workout split for today</p>
+        <p style="align-self: flex-start; padding-left: 1em;">It was definitely a long, tiring day after that </p>
     </div>
 
-    <div class="row">
-        <div class="column">
-            <div class="side-by-side photo">
-                <img src="images/w5.8.jpg" class="challenge">
-                <img src="images/w5.9.JPG" class="challenge">
-            </div>
+    <div class="row" style="flex-direction: column; ">
+        <div class="row" style="width: 47%; gap: 2em;">
+            <img src="images/w5.6.jpg" style="height: 50em;">
+            <img src="images/w5.7.jpg" style="height: 50em;">
         </div>
-        <div class="column">
-            <p>/* decision 4 - lunch */</p>
-            <p>/* it was the juciest burger */</p>
-        </div>
+        <p style="align-self: flex-start; padding-left: 1em;">Decision 3 - tram route from gym to my apartment</p>
+        <p style="align-self: flex-start; padding-left: 1em;">While the tram 16 took the longer route, I got to see the lovely St Kilda Beach and Luna Park.</p>
     </div>
 
-    <div class="row">
-        <div class="column">
-            <div class="side-by-side photo">
-                <img src="images/w5.14.jpg" class="challenge">
-                <img src="images/w5.15.JPG" class="challenge">
-            </div>
+    <div class="row" style="flex-direction: column; ">
+        <div class="row" style="width: 47%; gap: 2em;">
+            <img src="images/w5.8.jpg" style="height: 50em;">
+            <img src="images/w5.9.JPG" style="height: 50em;">
         </div>
-        <div class="column">
-            <p>/* decision 5 - to-dos */</p>
-            <p>/* i got the dreaded task of laundry <img src="images/crying-emoji.png" style="height: 15px;"> */</p>
-        </div>
+        <p style="align-self: flex-start; padding-left: 1em;">Decision 4 - lunch</p>
+        <p style="align-self: flex-start; padding-left: 1em;">It was the juciest burger.</p>
     </div>
 
-    <div class="row">
-        <div class="column">
-            <div class="side-by-side photo">
-                <img src="images/w5.10.jpg" class="challenge">
-                <img src="images/w5.11.jpg" class="challenge">
-            </div>
+    <div class="row" style="flex-direction: column; ">
+        <div class="row" style="width: 47%; gap: 2em;">
+            <img src="images/w5.8.jpg" style="height: 50em;">
+            <img src="images/w5.9.JPG" style="height: 50em;">
         </div>
-        <div class="column">
-            <p>/* decision 6 - outfit for the day */</p>
-            <p>/* i ended up loving the outfit */</p>
-        </div>
+        <p style="align-self: flex-start; padding-left: 1em;">Decision 5 - to-dos</p>
+        <p style="align-self: flex-start; padding-left: 1em;">I got the dreaded task of laundry.</p>
     </div>
 
-    <div class="row">
-        <div class="column">
-            <div class="side-by-side photo">
-                <img src="images/w5.24.jpg" class="challenge">
-                <img src="images/w5.27.jpg" class="challenge">
-            </div>
+    <div class="row" style="flex-direction: column; ">
+        <div class="row" style="width: 47%; gap: 2em;">
+            <img src="images/w5.10.jpg" style="height: 50em;">
+            <img src="images/w5.11.jpg" style="height: 50em;">
         </div>
-        <div class="column">
-            <p>/* decision 7 - socks */</p>
-            <p>/* i believe this pushed me to go outside my comfort zone</p>
-            <p>and express my creative side that loves colour */</p>
-        </div>
+        <p style="align-self: flex-start; padding-left: 1em;">Decision 6 - outfit for the day</p>
+        <p style="align-self: flex-start; padding-left: 1em;">I ended up loving the outfit.</p>
     </div>
 
-    <div class="row">
-        <div class="column">
-            <div class="side-by-side photo">
-                <img src="images/w5.18.jpg" class="challenge">
-                <img src="images/w5.19.jpg" class="challenge">
-            </div>
+    <div class="row" style="flex-direction: column; ">
+        <div class="row" style="width: 47%; gap: 2em;">
+            <img src="images/w5.24.jpg" style="height: 50em;">
+            <img src="images/w5.27.jpg" style="height: 50em;">
         </div>
-        <div class="column">
-            <p>/* decision 8 - where to work */</p>
-            <p>/* i found a cute cosy spot in Ballieu */</p>
-        </div>
+        <p style="align-self: flex-start; padding-left: 1em;">Decision 7 - socks</p>
+        <p style="align-self: flex-start; padding-left: 1em;">I believe this pushed me to go outside my comfort zone and express my creative side that loves colour.</p>
     </div>
 
-    <div class="row">
-        <div class="column">
-            <div class="side-by-side photo">
-                <img src="images/w5.22.jpg" class="challenge">
-                <img src="images/w5.23.JPG" class="challenge">
-            </div>
+    <div class="row" style="flex-direction: column; ">
+        <div class="row" style="width: 47%; gap: 2em;">
+            <img src="images/w5.18.jpg" style="height: 50em;">
+            <img src="images/w5.19.jpg" style="height: 50em;">
         </div>
-        <div class="column">
-            <p>/* decision 9 - dessert */</p>
-            <p>/* mango ice cream!! */</p>
-        </div>
+        <p style="align-self: flex-start; padding-left: 1em;">Decision 8 - where to work</p>
+        <p style="align-self: flex-start; padding-left: 1em;">I found a cute cosy spot in Ballieu.</p>
     </div>
 
-    <div class="row">
-        <div class="column">
-            <div class="side-by-side photo">
-                <img src="images/w5.20.jpg" class="challenge">
-                <img src="images/w5.21.JPG" class="challenge">
-            </div>
+    <div class="row" style="flex-direction: column; ">
+        <div class="row" style="width: 47%; gap: 2em;">
+            <img src="images/w5.22.jpg" style="height: 50em;">
+            <img src="images/w5.23.jpg" style="height: 50em;">
         </div>
-        <div class="column">
-            <p>/* decision 10 - how to end the day */</p>
-            <p>/* i often forget how lucky i am to have this view from my apartment,</p>
-            <p>this was a good reminder */</p>
+        <p style="align-self: flex-start; padding-left: 1em;">Decision 9 - dessert</p>
+        <p style="align-self: flex-start; padding-left: 1em;">Mango ice cream!!.</p>
+    </div>
+
+    <div class="row" style="flex-direction: column; ">
+        <div class="row" style="width: 47%; gap: 2em;">
+            <img src="images/w5.22.jpg" style="height: 50em;">
+            <img src="images/w5.23.jpg" style="height: 50em;">
         </div>
+        <p style="align-self: flex-start; padding-left: 1em;">Decision 10 - how to end the day</p>
+        <p style="align-self: flex-start; padding-left: 1em;">I  often forget how lucky i am to have this view from my apartment, this was a good reminder.</p>
     </div>
 
 
 
     <!--hunt n gather-->
-    <div class="sticky-heading"><h3>/* hunt n gather */</h3></div>
+    <h1 class="subheading">HUNT n GATHER</h1>
+    
 
+    <!--lip service-->
     <div class="row">
-        <div class="column">
-            <video controls class="photo" ><source src="images/w5.25.mov"></video>
+        <div class="column video-column">
+            <video controls class="photo">
+                <source src="images/w5.25.mov">
+            </video>
         </div>
-        <div class="column">
-            <p>/* lip service</p>
-            <p>reveals new image behind the main background</p>
-            <p>interactive elements - interactive cursor */</p>
+        <div class="column text-column">
+            <h2>LIP SERVICE</h2>
+            <p><strong>Matthew Mohr</strong></p>
+            <p>The website uses and interactive cursor that reveals new image behind the main background.</p>
             <p><a href="https://lipservice.wine/">view here</a></p>
         </div>
     </div>
 
-
+    <!--otis studios-->
     <div class="row">
-        <div class="column">
-            <img src="images/w5.26.png" class="photo">
+        <div class="column video-column">
+            <img src="images/w5.26.png">
         </div>
-        <div class="column">
-            <p>/* Otis Studios</p>
-            <p>interactive music experience</p>
-            <p>interactive elements - sound */</p>
+        <div class="column text-column">
+            <h2>OTIS STUDIOS</h2>
+            <p>The website presents a variety of music / sound samples as you scroll through with a graphic corresponding to the feeling of that audio clip.</p>
             <p><a href="https://otisstudios.com/">view here</a></p>
         </div>
     </div>
 
-    
+    <!--0/1 mirror-->
     <div class="row">
-        <div class="column">
-            <img src="images/w4.12.png" class="photo">
+        <div class="column video-column">
+            <img src="images/w4.12.png">
         </div>
-        <div class="column">
-            <p>/* 0/1 mirror</p>
-            <p>by Sihan Zhang</p>
-            <p>interactive elements - camera */</p>
+        <div class="column text-column">
+            <h2>0/1 MIRROR</h2>
+            <p><strong>Sihan Zhang</strong></p>
+            <p>This artwork uses a webcam and renders it into a block of interactive pixels that change colour corresponding to the viewer's movement.</p>
+            <p>I used some of this code to create the interactive sketch on this page while making tweaks to it to suit my style.</p>
             <p><a href="https://openprocessing.org/sketch/2537669">view here</a></p>
         </div>
     </div>
 
 
-    <!--references-->
-    <div style="padding-top: 4em;">
-        <h3>/* references */</h3>
-        <p>/* 0/1 mirror open source code */</br><a href="https://openprocessing.org/sketch/2537669">view here</a></p>
-    </div> 
 
-    <!--see the complete artwork-->
-    <div class="sticky-heading"><h3>/* hello */</h3></div>
-    <div style="height: 50em;">
-        <img src="images/waving.gif" style="height: 80px;">
-    </div>
+    <!-- sources -->
+    <div class="sources-block">
+        <p><strong>SOURCES</strong></p>
+        <p>0/1 mirror open source code</br><a href="https://openprocessing.org/sketch/2537669">view here</a></p>
+     </div>
+     
+
+    <!--footer-->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="workshop1.html">1</a>
+            <a href="workshop2.html">2</a>
+            <a href="workshop3.html">3</a>
+            <a href="workshop4.html">4</a>
+            <a href="workshop5.html">5</a>
+            <a href="workshop6.html">6</a>
+            <a href="workshop7.html">7</a>
+            <a href="workshop8.html">8</a>
+            <a href="workshop9.html">9</a>
+        </div>
+    </footer>
 
 </body>  
 </html>

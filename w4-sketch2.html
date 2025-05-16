@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>p5 Sketch</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.3/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let canvas2;
+
+        function setup() {
+            canvas2 = createCanvas(1100, 500);
+            background(0);
+            noStroke();
+            frameRate(40);
+        }
+
+        function draw() {
+            fill(random(255), random(255), random(255));
+            circle(mouseX, mouseY, 10);
+        }
+    </script>
+</body>
+</html>

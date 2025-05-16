@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Paint Sketch</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+</head>
+<body style="margin: 0; padding: 0; overflow: hidden;">
+
+  <script>
+    let bottomImg, topImg;
+
+    function preload() {
+      bottomImg = loadImage("images/w4.1.JPG");
+      topImg = loadImage("images/w4.15.JPG");
+    }
+
+    function setup() {
+      createCanvas(1100, 500);
+      topImg.resize(width, height);
+      bottomImg.resize(width, height);
+      image(bottomImg, 0, 0);
+    }
+
+    function mouseDragged() {
+      if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
+        copy(topImg, mouseX, mouseY, 30, 30, mouseX, mouseY, 30, 30);
+      }
+    }
+  </script>
+
+</body>
+</html>
